@@ -1,0 +1,50 @@
+﻿@model Group3_iFINANCEAPP.Models.UserPassword
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserPassword</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.encryptedPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.encryptedPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.passwordExpiryTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.passwordExpiryTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userAccountExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userAccountExpiryDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

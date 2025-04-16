@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Group3_iFINANCEDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="dateHired" Type="date" />
+          <Property Name="dateFinished" Type="date" />
+          <Property Name="userShadow" Type="int" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="AccountCategoryID" Type="int" />
+        </EntityType>
+        <EntityType Name="NonAdminUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="address" Type="nvarchar" MaxLength="200" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="AdministratorID" Type="int" />
+          <Property Name="creator" Type="int" />
+          <Property Name="userShadow" Type="int" />
+        </EntityType>
+        <EntityType Name="UserPassword">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="100" />
+          <Property Name="encryptedPassword" Type="nvarchar" MaxLength="255" />
+          <Property Name="passwordExpiryTime" Type="datetime" />
+          <Property Name="userAccountExpiryDate" Type="date" />
+        </EntityType>
+        <Association Name="FK__NonAdminU__Admin__4F7CD00D">
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <End Role="NonAdminUser" Type="Self.NonAdminUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NonAdminUser">
+              <PropertyRef Name="AdministratorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Group3_iFINANCEDBModelStoreContainer">
+          <EntitySet Name="AccountCategory" EntityType="Self.AccountCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NonAdminUser" EntityType="Self.NonAdminUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPassword" EntityType="Self.UserPassword" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__NonAdminU__Admin__4F7CD00D" Association="Self.FK__NonAdminU__Admin__4F7CD00D">
+            <End Role="Administrator" EntitySet="Administrator" />
+            <End Role="NonAdminUser" EntitySet="NonAdminUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Group3_iFINANCEDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="dateHired" Type="DateTime" Precision="0" />
+          <Property Name="dateFinished" Type="DateTime" Precision="0" />
+          <Property Name="userShadow" Type="Int32" />
+          <NavigationProperty Name="NonAdminUser" Relationship="Self.FK__NonAdminU__Admin__4F7CD00D" FromRole="Administrator" ToRole="NonAdminUser" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AccountCategoryID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="NonAdminUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AdministratorID" Type="Int32" />
+          <Property Name="creator" Type="Int32" />
+          <Property Name="userShadow" Type="Int32" />
+          <NavigationProperty Name="Administrator" Relationship="Self.FK__NonAdminU__Admin__4F7CD00D" FromRole="NonAdminUser" ToRole="Administrator" />
+        </EntityType>
+        <EntityType Name="UserPassword">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="userName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="encryptedPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="passwordExpiryTime" Type="DateTime" Precision="3" />
+          <Property Name="userAccountExpiryDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK__NonAdminU__Admin__4F7CD00D">
+          <End Role="Administrator" Type="Self.Administrator" Multiplicity="0..1" />
+          <End Role="NonAdminUser" Type="Self.NonAdminUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NonAdminUser">
+              <PropertyRef Name="AdministratorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Group3_iFINANCEDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountCategory" EntityType="Self.AccountCategory" />
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" />
+          <EntitySet Name="Group" EntityType="Self.Group" />
+          <EntitySet Name="NonAdminUser" EntityType="Self.NonAdminUser" />
+          <EntitySet Name="UserPassword" EntityType="Self.UserPassword" />
+          <AssociationSet Name="FK__NonAdminU__Admin__4F7CD00D" Association="Self.FK__NonAdminU__Admin__4F7CD00D">
+            <End Role="Administrator" EntitySet="Administrator" />
+            <End Role="NonAdminUser" EntitySet="NonAdminUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Group3_iFINANCEDBModelStoreContainer" CdmEntityContainer="Group3_iFINANCEDBEntities">
+          <EntitySetMapping Name="AccountCategory">
+            <EntityTypeMapping TypeName="Group3_iFINANCEDBModel.AccountCategory">
+              <MappingFragment StoreEntitySet="AccountCategory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Administrator">
+            <EntityTypeMapping TypeName="Group3_iFINANCEDBModel.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="dateHired" ColumnName="dateHired" />
+                <ScalarProperty Name="dateFinished" ColumnName="dateFinished" />
+                <ScalarProperty Name="userShadow" ColumnName="userShadow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group">
+            <EntityTypeMapping TypeName="Group3_iFINANCEDBModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="AccountCategoryID" ColumnName="AccountCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NonAdminUser">
+            <EntityTypeMapping TypeName="Group3_iFINANCEDBModel.NonAdminUser">
+              <MappingFragment StoreEntitySet="NonAdminUser">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="AdministratorID" ColumnName="AdministratorID" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
+                <ScalarProperty Name="userShadow" ColumnName="userShadow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPassword">
+            <EntityTypeMapping TypeName="Group3_iFINANCEDBModel.UserPassword">
+              <MappingFragment StoreEntitySet="UserPassword">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="encryptedPassword" ColumnName="encryptedPassword" />
+                <ScalarProperty Name="passwordExpiryTime" ColumnName="passwordExpiryTime" />
+                <ScalarProperty Name="userAccountExpiryDate" ColumnName="userAccountExpiryDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
